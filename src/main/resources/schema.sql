@@ -1,0 +1,16 @@
+--CREATE DATABASE IF NOT EXISTS resavedb;
+
+CREATE TABLE IF NOT EXISTS person (
+  person_id SERIAL PRIMARY KEY,
+  first_name CHARACTER VARYING(100) NOT NULL,
+  last_name CHARACTER VARYING(100) NOT NULL,
+  country CHARACTER VARYING(100) NOT NULL,
+  city CHARACTER VARYING(100) NOT NULL
+ );
+
+CREATE TABLE IF NOT EXISTS file_name (
+  file_name_id int NOT NULL PRIMARY KEY,
+  file_path CHARACTER VARYING(250) NOT NULL
+ );
+
+INSERT INTO file_name VALUES (1, './src/main/resources/person');
