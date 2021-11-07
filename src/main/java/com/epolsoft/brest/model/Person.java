@@ -1,6 +1,5 @@
 package com.epolsoft.brest.model;
 
-import javax.persistence.Id;
 import java.util.Objects;
 
 public class Person {

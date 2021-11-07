@@ -8,11 +8,8 @@ import com.epolsoft.brest.file.CSVFileOfPersonReader;
 import com.epolsoft.brest.file.FileOfPersonReader;
 import com.epolsoft.brest.service.DbResaveService;
 import com.epolsoft.brest.service.ResaveService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Scope;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -33,13 +30,6 @@ public class AppConfig {
     private final String DB_URL = "jdbc:postgresql://localhost:5432/resavedb";
     private final String DB_USERNAME = "postgres";
     private final String DB_PASSWORD = "admin";
-
-//    @Bean
-//    @Scope(value = "prototype")
-//    public Logger logger()
-//    {
-//        return LoggerFactory.getLogger(DbResaveService.class);
-//    }
 
     @Bean
     public ResaveService resaveService() {
@@ -74,9 +64,9 @@ public class AppConfig {
 //        dataSource.setUsername(Preconditions.checkNotNull(env.getProperty("jdbc.user")));
 //        dataSource.setPassword(Preconditions.checkNotNull(env.getProperty("jdbc.pass")));
 
-//        Resource initSchema = new ClassPathResource("./schema.sql");
-//        DatabasePopulator databasePopulator = new ResourceDatabasePopulator(initSchema);
-//        DatabasePopulatorUtils.execute(databasePopulator, dataSource);
+        Resource initSchema = new ClassPathResource("./schema.sql");
+        DatabasePopulator databasePopulator = new ResourceDatabasePopulator(initSchema);
+        DatabasePopulatorUtils.execute(databasePopulator, dataSource);
 
         return dataSource;
     }

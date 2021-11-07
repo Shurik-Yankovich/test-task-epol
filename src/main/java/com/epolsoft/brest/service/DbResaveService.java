@@ -6,8 +6,8 @@ import com.epolsoft.brest.exception.ReadFormatNotSupportedException;
 import com.epolsoft.brest.file.FileOfPersonReader;
 import com.epolsoft.brest.model.CSVFile;
 import com.epolsoft.brest.model.Person;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+
+import org.apache.log4j.Logger;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -23,7 +23,7 @@ public class DbResaveService implements ResaveService {
     private final FileNameDao fileNameDao;
     private CSVFile csvFile;
     boolean isNeededToSave;
-    private Logger logger = LoggerFactory.getLogger(DbResaveService.class);
+    private static final Logger logger = Logger.getLogger(DbResaveService.class);
 
     public DbResaveService(PersonDao personDao, FileOfPersonReader fileOfPersonReader, FileNameDao fileNameDao) {
         this.personDao = personDao;
@@ -42,14 +42,11 @@ public class DbResaveService implements ResaveService {
                     personDao.save(person);
                 }
                 logger.info(csvFile.getFilename() + ".CSV прочитан и сохранен");
-//                System.out.println(csvFile.getFilename() + ".CSV прочитан и сохранен");
             } catch (ReadFormatNotSupportedException e) {
                 logger.info(e.getMessage());
-//                System.out.println(e.getMessage());
             }
         } else {
             logger.info(csvFile.getFilename() + ".CSV был прочитан ранее, нет новых данных");
-//            System.out.println(csvFile.getFilename() + ".CSV был прочитан ранее, нет новых данных");
         }
     }
 
@@ -65,7 +62,5 @@ public class DbResaveService implements ResaveService {
         } else {
             isNeededToSave = !csvFile.getLastModified().equals(lastModified);
         }
-        logger.info("Прочитан путь к файлу: " + filename);
-//        System.out.println(filename);
     }
 }

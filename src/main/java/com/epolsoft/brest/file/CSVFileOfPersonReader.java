@@ -23,7 +23,6 @@ public class CSVFileOfPersonReader implements FileOfPersonReader {
         try (FileReader filereader = new FileReader(filePath + FILE_FORMAT);
              CSVReader csvReader = new CSVReader(filereader)) {
             String[] values;
-//            CsvToBean csvToBean = new CsvToBean();
             values = csvReader.readNext();
             if (values == null || values.length != NUMBER_OF_COLUMNS) {
                 throw new ReadFormatNotSupportedException(filePath + ".CSV неверный формат, данные не записываются");

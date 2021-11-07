@@ -23,22 +23,7 @@ public class PersonDaoImpl implements PersonDao {
     }
 
     @Override
-    public Person read(Long id) {
-        return null;
-    }
-
-    @Override
     public List<Person> readAll() {
         return null;
-    }
-
-    @Override
-    public void update(Person entity) {
-
-    }
-
-    @Override
-    public void delete(Long id) {
-
     }
 }
