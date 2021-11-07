@@ -1,4 +1,4 @@
-package com.epolsoft.brest.file;
+package com.epolsoft.brest.file.api;
 
 import com.epolsoft.brest.exception.ReadFormatNotSupportedException;
 import com.epolsoft.brest.model.Person;

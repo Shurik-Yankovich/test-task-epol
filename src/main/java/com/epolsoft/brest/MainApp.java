@@ -1,7 +1,7 @@
 package com.epolsoft.brest;
 
 import com.epolsoft.brest.config.AppConfig;
-import com.epolsoft.brest.service.ResaveService;
+import com.epolsoft.brest.service.api.ResaveService;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 

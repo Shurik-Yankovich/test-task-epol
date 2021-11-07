@@ -1,4 +1,4 @@
-package com.epolsoft.brest.service;
+package com.epolsoft.brest.service.api;
 
 public interface ResaveService {
 

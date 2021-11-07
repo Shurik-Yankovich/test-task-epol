@@ -1,6 +1,7 @@
-package com.epolsoft.brest.file;
+package com.epolsoft.brest.file.impl;
 
 import com.epolsoft.brest.exception.ReadFormatNotSupportedException;
+import com.epolsoft.brest.file.api.FileOfPersonReader;
 import com.epolsoft.brest.model.Person;
 import com.opencsv.CSVReader;
 import com.opencsv.exceptions.CsvValidationException;

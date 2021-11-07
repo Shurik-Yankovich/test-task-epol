@@ -69,5 +69,22 @@
         </dependency>
     </dependencies>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.flywaydb</groupId>
+                <artifactId>flyway-maven-plugin</artifactId>
+                <version>8.0.3</version>
+                <configuration>
+                    <user>postgres</user>
+                    <password>admin</password>
+                    <url>jdbc:postgresql://localhost:5432/resavedb</url>
+                    <schemas>
+                        <schema>V1_1_0__create_table</schema>
+                    </schemas>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
 </project>

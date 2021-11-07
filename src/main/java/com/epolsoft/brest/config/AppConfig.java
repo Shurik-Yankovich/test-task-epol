@@ -4,17 +4,17 @@ import com.epolsoft.brest.dao.api.FileNameDao;
 import com.epolsoft.brest.dao.api.PersonDao;
 import com.epolsoft.brest.dao.impl.FileNameDaoImpl;
 import com.epolsoft.brest.dao.impl.PersonDaoImpl;
-import com.epolsoft.brest.file.CSVFileOfPersonReader;
-import com.epolsoft.brest.file.FileOfPersonReader;
-import com.epolsoft.brest.service.DbResaveService;
-import com.epolsoft.brest.service.ResaveService;
+import com.epolsoft.brest.file.impl.CSVFileOfPersonReader;
+import com.epolsoft.brest.file.api.FileOfPersonReader;
+import com.epolsoft.brest.service.impl.DbResaveService;
+import com.epolsoft.brest.service.api.ResaveService;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.Resource;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -23,13 +23,17 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableScheduling
-//@PropertySource("classpath:application.properties")
+@PropertySource("jdbc.properties")
 public class AppConfig {
 
-    private final String DB_DRIVER = "org.postgresql.Driver";
-    private final String DB_URL = "jdbc:postgresql://localhost:5432/resavedb";
-    private final String DB_USERNAME = "postgres";
-    private final String DB_PASSWORD = "admin";
+    @Value("${jdbc.driverClassName}")
+    private String DB_DRIVER;
+    @Value("${jdbc.url}")
+    private String DB_URL;
+    @Value("${jdbc.username}")
+    private String DB_USERNAME;
+    @Value("${jdbc.password}")
+    private String DB_PASSWORD;
 
     @Bean
     public ResaveService resaveService() {
@@ -59,14 +63,9 @@ public class AppConfig {
         dataSource.setUsername(DB_USERNAME);
         dataSource.setPassword(DB_PASSWORD);
 
-//        dataSource.setDriverClassName(Preconditions.checkNotNull(env.getProperty("jdbc.driverClassName")));
-//        dataSource.setUrl(Preconditions.checkNotNull(env.getProperty("jdbc.url")));
-//        dataSource.setUsername(Preconditions.checkNotNull(env.getProperty("jdbc.user")));
-//        dataSource.setPassword(Preconditions.checkNotNull(env.getProperty("jdbc.pass")));
-
-        Resource initSchema = new ClassPathResource("./schema.sql");
-        DatabasePopulator databasePopulator = new ResourceDatabasePopulator(initSchema);
-        DatabasePopulatorUtils.execute(databasePopulator, dataSource);
+        ResourceDatabasePopulator tables = new ResourceDatabasePopulator();
+        tables.addScript(new ClassPathResource("/start_schema.sql"));
+        DatabasePopulatorUtils.execute(tables, dataSource);
 
         return dataSource;
     }

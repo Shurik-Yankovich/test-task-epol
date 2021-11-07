@@ -66,15 +66,14 @@ public class Person {
         if (this == o) return true;
         if (!(o instanceof Person)) return false;
         Person person = (Person) o;
-        return Objects.equals(getId(), person.getId()) &&
-                Objects.equals(getFirstName(), person.getFirstName()) &&
-                Objects.equals(getLastName(), person.getLastName()) &&
-                Objects.equals(getCountry(), person.getCountry()) &&
-                Objects.equals(getCity(), person.getCity());
+        return  getFirstName().equals(person.getFirstName()) &&
+                getLastName().equals(person.getLastName()) &&
+                getCountry().equals(person.getCountry()) &&
+                getCity().equals(person.getCity());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getFirstName(), getLastName(), getCountry(), getCity());
+        return Objects.hash(getFirstName(), getLastName(), getCountry(), getCity());
     }
 }
